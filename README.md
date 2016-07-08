@@ -1,5 +1,5 @@
 # le-query-all-logs
-Script that runs a query against all logs in account and prints results in csv file. Useful for query you account to find out the logs with the most usage.
+Script that runs a query against all logs in account and prints results in csv file. Can be used to query your Logentries account to find out the logs with the most usage.
 
 You will need your account key and read only api key.
 
