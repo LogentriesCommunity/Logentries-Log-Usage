@@ -11,7 +11,10 @@ from datetime import datetime
 API_KEY = sys.argv[2]
 now_millis = int(round(time.time() * 1000))
 TO_TS = now_millis
-FROM_TS = "1467500400000"# miliseconds 3rd July
+date_time = sys.argv[4]#'dd.mm.yyyy'
+time_patt = '%d.%m.%Y'
+epoch = int(time.mktime(time.strptime(date_time, time_patt)))
+FROM_TS = epoch * 1000
 
 SEARCH_QUERY = "where(/.*/) calculate(bytes)"
 ACCOUNT_KEY = ''
