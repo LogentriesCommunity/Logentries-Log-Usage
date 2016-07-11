@@ -10,5 +10,3 @@ Default query is `where(/.*/) calculate(bytes)` and will be searched agaisnt all
 $ python query_all_logs.py ACCOUNT_KEY READ_ONLY_API_KEY results.csv DD.MM.YYYY
 
 Results will be stored in a csv file in the same directory where the script is saved.
-
-Default query is `where(/.*/) calculate(bytes)`
