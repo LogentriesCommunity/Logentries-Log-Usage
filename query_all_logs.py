@@ -23,7 +23,7 @@ OUTFILE_WRITER.writerow(['Log Set', 'Log Name', 'Query Result'])
 
 
 def get_host_name():
-    req = urllib.urlopen("http://api.logentries.com/" + ACCOUNT_KEY + '/hosts/')
+    req = urllib.urlopen("https://api.logentries.com/" + ACCOUNT_KEY + '/hosts/')
     response = json.load(req)
     for hosts in response['list']:
         HOST_NAMES_KEYS_DICT[hosts['key']] = hosts['name']
