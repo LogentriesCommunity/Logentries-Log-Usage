@@ -51,7 +51,6 @@ def get_continuity_final_response(response):
 
 
 def post_query_to_le(hostkey):
-    print hostkey
     headers = {'x-api-key': API_KEY}
     payload = {"logs": [hostkey],
                "leql": {"during": {"from": FROM_TS, "to": TO_TS},
