@@ -5,7 +5,6 @@ import requests
 import time
 import csv
 
-
 API_KEY = sys.argv[2]
 now_millis = int(round(time.time() * 1000))
 TO_TS = now_millis
@@ -52,6 +51,7 @@ def get_continuity_final_response(response):
 
 
 def post_query_to_le(hostkey):
+    print hostkey
     headers = {'x-api-key': API_KEY}
     payload = {"logs": [hostkey],
                "leql": {"during": {"from": FROM_TS, "to": TO_TS},
@@ -76,6 +76,26 @@ def handle_response(resp, log_key):
         print 'Error status code ' + str(resp.status_code)
         return
 
+def humanize_bytes(bytesize, precision=2):
+    """
+    Humanize byte size figures
+    """
+    abbrevs = (
+        (1 << 50, 'PB'),
+        (1 << 40, 'TB'),
+        (1 << 30, 'GB'),
+        (1 << 20, 'MB'),
+        (1 << 10, 'kB'),
+        (1, 'bytes')
+    )
+    if bytesize == 1:
+        return '1 byte'
+    for factor, suffix in abbrevs:
+        if bytesize >= factor:
+            break
+    if factor == 1:
+        precision = 0
+    return '%.*f %s' % (precision, bytesize / float(factor), suffix)
 
 def get_log_name_and_key(host_key, host_name):
     req = urllib.urlopen("http://api.logentries.com/" + ACCOUNT_KEY + '/hosts/' + host_key + '/')
@@ -88,13 +108,16 @@ def get_log_name_and_key(host_key, host_name):
 
         results1 = post_query_to_le(str(everylogkey['key']))
         results = handle_response(results1, str(everylogkey['key']))
+        if not results:
+            break
         # if query is calculate(count) then: results.json()['statistics']['stats']['global_timeseries']['count']
         # if query is calculate(bytes) then: results.json()['statistics']['stats']['global_timeseries']['bytes']
         try:
             if len(results.json()['statistics']['stats']['global_timeseries']) > 0:
-                query_result = str(results.json()['statistics']['stats']['global_timeseries']['bytes'])
+                query_result = results.json()['statistics']['stats']['global_timeseries']['bytes']
+                query_result = humanize_bytes(query_result)
             else:
-                query_result = 0
+                query_result = humanize_bytes(0)
             print query_result
             OUTFILE_WRITER.writerow((host_name, everylogkey['name'], query_result))
         except KeyError as exception:
