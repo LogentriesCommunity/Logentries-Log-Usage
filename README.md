@@ -1,9 +1,7 @@
-# le-query-all-logs
-Script that runs a query against all logs in account and prints results in csv file. Can be used to query your Logentries account to find out the logs with the most usage.
+# Logentries-Log-Usage
+Script that generates a CSV file that shows the Account usage for a given account from a given point in time (DD.MM.YYYY) in humanized form that can help you establish which of your logs is sending the most data to your account.
 
-You will need your account key and read only api key.
-
-Default query is `where(/.*/) calculate(bytes)` and will be searched agaisnt all logs From DD.MM.YYYY to Now. 
+To use the script you must supply your [Account Key](https://docs.logentries.com/docs/accountkey) and a [Read-Write or Read-Only](https://docs.logentries.com/docs/api-keys) key. 
 
 ##### To Run
 
