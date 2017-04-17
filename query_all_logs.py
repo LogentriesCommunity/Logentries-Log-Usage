@@ -25,8 +25,6 @@ def get_host_name(csv_file, name=None):
             if hosts['name'] == name:
                 HOST_NAMES_KEYS_DICT[hosts['key']] = hosts['name']
                 break
-            else:
-                continue
         else:
             HOST_NAMES_KEYS_DICT[hosts['key']] = hosts['name']
     if HOST_NAMES_KEYS_DICT:
